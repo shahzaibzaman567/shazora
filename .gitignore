@@ -1,0 +1,67 @@
+# ========================
+# Dependencies
+# ========================
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# ========================
+# Environment Variables (NEVER push these)
+# ========================
+.env
+.env.local
+.env.production
+.env.development
+server/.env
+client/.env
+client/.env.local
+
+# ========================
+# Build Output
+# ========================
+dist/
+client/dist/
+build/
+
+# ========================
+# Logs
+# ========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================
+# InsForge & AI Agent Tools (not needed on GitHub)
+# ========================
+.insforge/
+insforge/
+supabase/
+.agents/
+.augment/
+.claude/
+.cline/
+.cursor/
+.kilocode/
+.qoder/
+.qwen/
+.roo/
+.trae/
+.windsurf/
+.github/copilot*
+
+# ========================
+# Deploy Scripts (not needed)
+# ========================
+deploy-insforge.bat
+deploy-insforge.sh
+start-local.bat
+start-local.sh
+insforge.json
+skills-lock.json
+
+# ========================
+# OS Files
+# ========================
+.DS_Store
+Thumbs.db

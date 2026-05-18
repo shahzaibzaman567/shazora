@@ -1,324 +1,49 @@
-# SHZORA E-COMMERCE PLATFORM
+# Shazora E-Commerce 🛍️
 
-Welcome to **SHZORA**, a modern and smart fashion e-commerce platform built for both **Men** and **Women** clothing collections.  
-SHZORA is designed to provide users with a smooth, secure, and intelligent online shopping experience with advanced features, AI assistance, secure payments, authentication, and order management.
+Shazora is a modern, premium E-Commerce web application built to provide a stunning shopping experience. It features dynamic animations, a fully-functional shopping cart, secure payments, and a powerful admin dashboard.
 
----
+## 🌟 Features
 
-# 🌟 About SHZORA
+- **Premium UI/UX:** Built with React, Tailwind CSS, Framer Motion, and GSAP for fluid, stunning micro-animations.
+- **Authentication & Authorization:** Secure login and registration powered by InsForge.
+- **Product Management:** Complete Admin Dashboard to add, edit, and delete products in real-time.
+- **Order Tracking & Management:** View and update order statuses effortlessly.
+- **Stripe Integration:** Secure and seamless checkout process using Stripe.
+- **Serverless Architecture:** Fully migrated to InsForge (PostgreSQL, Auth, RLS) for high scalability.
 
-SHZORA is not just a normal clothing website.  
-It is a complete fashion ecosystem where users can:
+## 🚀 Tech Stack
 
-- Explore trending fashion products
-- Buy clothes for men and women
-- Chat with AI assistant for help
-- Place secure orders
-- Make online payments using Stripe
-- Manage their profile and orders
-- Save favorite products
-- Track shipments and delivery status
+- **Frontend:** React, Vite, Tailwind CSS, Lucide React, Framer Motion, GSAP
+- **Backend:** Node.js, Express (For Stripe Proxying) & **InsForge (Supabase Alternative)**
+- **Database:** PostgreSQL (via InsForge)
+- **Payments:** Stripe Checkout
 
-The goal of SHZORA is to make online shopping simple, modern, fast, and intelligent.
+## 📦 Local Development
 
----
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/shahzaibzaman567/shazora.git
+   cd shazora
+   ```
 
-# 👕 Men Collection
+2. **Install dependencies:**
+   ```bash
+   npm run install:all
+   ```
 
-Our Men Fashion section includes:
+3. **Set up Environment Variables:**
+   Create a `.env` in `server/` and `.env.local` in `client/` using the provided keys for Stripe and InsForge.
 
-- T-Shirts
-- Hoodies
-- Jackets
-- Jeans
-- Pants
-- Traditional Wear
-- Shoes
-- Watches
-- Accessories
+4. **Run the application:**
+   ```bash
+   npm run dev
+   ```
+   *This command concurrently starts both the frontend client and the backend proxy server.*
 
-Features:
+## 🛡️ Architecture & Security
 
-- Multiple size options
-- Product zoom
-- Color selection
-- Reviews and ratings
-- Smart recommendations
-- Discount offers
+Shazora leverages **Row Level Security (RLS)** in PostgreSQL to ensure that user data is isolated securely. The backend infrastructure is fully managed by InsForge, ensuring high availability and seamless data querying directly from the frontend using the `@insforge/sdk`.
 
----
+## 📄 License
 
-# 👗 Women Collection
-
-Our Women Fashion section includes:
-
-- Dresses
-- Abayas
-- Tops
-- Handbags
-- Shoes
-- Jewelry
-- Makeup Accessories
-- Winter Collection
-- Luxury Fashion
-
-Features:
-
-- Trend based collections
-- Fashion suggestions
-- Wishlist system
-- Category filtering
-- New arrivals section
-
----
-
-# 🤖 AI Assistant
-
-SHZORA includes an advanced AI assistant that helps users in real time.
-
-The AI assistant can:
-
-- Recommend products
-- Help users find sizes
-- Answer customer questions
-- Suggest trending outfits
-- Help during checkout
-- Track orders
-- Provide support instantly
-
-This creates a modern shopping experience similar to premium international brands.
-
----
-
-# 💳 Stripe Payment Integration
-
-SHZORA uses Stripe payment gateway for secure online transactions.
-
-Supported payment methods:
-
-- Debit Cards
-- Credit Cards
-- Visa
-- MasterCard
-- Online Payments
-
-Features:
-
-- Secure checkout
-- Fast payment processing
-- Payment verification
-- Transaction history
-- Safe customer data protection
-
----
-
-# 🔐 Authentication System
-
-The platform includes a complete authentication system.
-
-Users can:
-
-- Create accounts
-- Login securely
-- Reset passwords
-- Verify email accounts
-- Update profile information
-- Secure sessions
-
-Authentication Features:
-
-- JWT Authentication
-- Session Management
-- Protected Routes
-- Secure Password Encryption
-- Google Login Support
-- Email Verification
-
----
-
-# 🛒 Shopping Cart System
-
-Users can:
-
-- Add products to cart
-- Remove items
-- Update quantities
-- Save products for later
-- View total pricing
-- Apply discount coupons
-
-Cart Features:
-
-- Dynamic pricing
-- Real-time updates
-- Tax calculation
-- Delivery fee calculation
-
----
-
-# 📦 Order Management System
-
-SHZORA provides a complete order management system.
-
-Users can:
-
-- Place orders
-- Track delivery
-- View order history
-- Cancel orders
-- Download invoices
-
-Admin Features:
-
-- Manage all orders
-- Update delivery status
-- Approve or reject orders
-- Generate reports
-
----
-
-# ❤️ Wishlist System
-
-Customers can save products to their wishlist and purchase them later.
-
-Features:
-
-- Save favorite products
-- Move items to cart
-- Personalized suggestions
-
----
-
-# 🔎 Search & Filtering
-
-Advanced filtering system helps users quickly find products.
-
-Users can filter by:
-
-- Price
-- Category
-- Gender
-- Size
-- Color
-- Brand
-- Popularity
-
----
-
-# 📱 Responsive Design
-
-SHZORA is fully responsive and optimized for:
-
-- Mobile devices
-- Tablets
-- Laptops
-- Desktop screens
-
-The UI is designed with a modern and premium look.
-
----
-
-# ⚡ Performance Optimization
-
-Features:
-
-- Fast page loading
-- Optimized images
-- Lazy loading
-- Secure backend architecture
-- Database optimization
-
----
-
-# 🛠️ Technologies Used
-
-Frontend:
-
-- HTML
-- CSS
-- JavaScript
-- React.js
-- Tailwind CSS
-
-Backend:
-
-- Node.js
-- Express.js
-
-Database:
-
-- MongoDB
-
-Authentication:
-
-- Firebase Auth
-- JWT
-
-Payment Gateway:
-
-- Stripe
-
-Deployment:
-
-- Vercel
-- Render
-
----
-
-# 👨‍💼 Admin Dashboard
-
-Admin can:
-
-- Add products
-- Delete products
-- Manage users
-- Manage orders
-- View analytics
-- Monitor sales
-- Upload banners
-- Control discounts
-
----
-
-# 📈 Future Goals
-
-Future updates may include:
-
-- AI fashion stylist
-- Voice shopping assistant
-- AR virtual try-on
-- International shipping
-- Multi-language support
-- Crypto payments
-
----
-
-# 🎯 Mission
-
-The mission of SHZORA is to build a trusted fashion platform that combines:
-
-- Modern technology
-- Secure shopping
-- AI intelligence
-- Premium user experience
-
-All in one powerful e-commerce solution.
-
----
-
-# 📞 Support
-
-For support or business inquiries:
-
-- Email Support
-- Live Chat
-- AI Assistant
-- Customer Care System
-
----
-
-# 🚀 SHZORA
-
-"Smart Fashion. Smart Shopping."
-
-A next-generation e-commerce platform powered by AI and modern web technologies.
+This project is open-source and available under the MIT License.
