@@ -3,7 +3,16 @@ import axios from 'axios';
 const viteEnv = import.meta.env || {};
 const baseURL = viteEnv.VITE_API_BASE_URL || 'http://localhost:5001/api';
 export const mongoBaseURL = baseURL;
-export const mongoOrigin = new URL(baseURL).origin;
+
+let parsedOrigin = 'http://localhost:5001';
+try {
+  parsedOrigin = new URL(baseURL).origin;
+} catch (e) {
+  if (typeof window !== 'undefined') {
+    parsedOrigin = window.location.origin;
+  }
+}
+export const mongoOrigin = parsedOrigin;
 export const googleAuthStartUrl =
   viteEnv.VITE_GOOGLE_AUTH_START_URL || `${mongoOrigin}/api/auth/google`;
 export const authSessionApi = axios.create({
