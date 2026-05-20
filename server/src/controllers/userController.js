@@ -39,37 +39,6 @@ export const authUser = async (req, res, next) => {
   } catch (error) { next(error); }
 };
 
-// @desc    Auth via Google (Mock for now or verify Google Token)
-// @route   POST /api/users/google
-// @access  Public
-export const googleAuthUser = async (req, res, next) => {
-  try {
-    const { email, name, googleId } = req.body;
-    let user = await User.findOne({ email });
-    
-    if (!user) {
-      // Create user if they don't exist
-      user = await User.create({
-        name,
-        email,
-        password: googleId + Math.random().toString(), // Random password for oauth users
-      });
-    }
-
-    const token = generateToken(res, user._id);
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      status: user.status,
-      token,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 // @desc    Register a new user
 // @route   POST /api/users
 export const registerUser = async (req, res, next) => {

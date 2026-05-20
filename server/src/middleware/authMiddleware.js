@@ -1,8 +1,21 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
+export const protectSession = (req, res, next) => {
+  if (req.isAuthenticated?.() && req.user) {
+    return next();
+  }
+
+  res.status(401);
+  return next(new Error('Not authenticated'));
+};
+
 // Protect routes — cookie, Bearer token, or legacy "Bearer <jwt>" split
 export const protect = async (req, res, next) => {
+  if (req.isAuthenticated?.() && req.user) {
+    return next();
+  }
+
   let token;
 
   const authHeader = req.headers.authorization;
@@ -42,5 +55,4 @@ export const admin = (req, res, next) => {
     next(new Error('Not authorized as an admin'));
   }
 };
-
 

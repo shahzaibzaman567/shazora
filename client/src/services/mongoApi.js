@@ -1,6 +1,15 @@
 import axios from 'axios';
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
+const viteEnv = import.meta.env || {};
+const baseURL = viteEnv.VITE_API_BASE_URL || 'http://localhost:5001/api';
+export const mongoBaseURL = baseURL;
+export const mongoOrigin = new URL(baseURL).origin;
+export const googleAuthStartUrl =
+  viteEnv.VITE_GOOGLE_AUTH_START_URL || `${mongoOrigin}/api/auth/google`;
+export const authSessionApi = axios.create({
+  baseURL: `${mongoOrigin}/api/auth`,
+  withCredentials: true,
+});
 export const hasMongoAuthToken = () => Boolean(localStorage.getItem('shazora_jwt'));
 export const isMongoConfigured = () => Boolean(baseURL);
 export const shouldUseMongoAdmin = () => isMongoConfigured() && hasMongoAuthToken();
@@ -52,8 +61,17 @@ export async function mongoFetchProfile() {
   return normalizeUser(data);
 }
 
+export async function fetchSessionProfile() {
+  const { data } = await authSessionApi.get('/me');
+  return normalizeUser(data);
+}
+
 export async function mongoLogout() {
   localStorage.removeItem('shazora_jwt');
+}
+
+export async function sessionLogout() {
+  await authSessionApi.post('/logout');
 }
 
 /** --- Admin --- */

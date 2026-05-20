@@ -34,8 +34,8 @@ const Navbar = () => {
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate('/');
     setShowUserMenu(false);
   };
@@ -80,9 +80,17 @@ const Navbar = () => {
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="flex items-center gap-3 px-4 py-2 rounded-xl border border-slate-300 dark:border-white/10 hover:border-accent transition-all bg-white/5 backdrop-blur-md"
                 >
-                  <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center text-[10px] font-bold text-white uppercase">
-                    {user?.name?.[0] || 'U'}
-                  </div>
+                  {user?.profilePicture ? (
+                    <img
+                      src={user.profilePicture}
+                      alt={user.name || 'User'}
+                      className="w-6 h-6 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center text-[10px] font-bold text-white uppercase">
+                      {user?.name?.[0] || 'U'}
+                    </div>
+                  )}
                   <span className="text-xs font-bold uppercase tracking-widest">{user?.name ? user.name.split(' ')[0] : 'User'}</span>
                   <ChevronDown className={`w-3 h-3 transition-transform ${showUserMenu ? 'rotate-180' : ''}`} />
                 </button>
@@ -181,7 +189,7 @@ const Navbar = () => {
                 <Link to="/my-orders" onClick={() => setIsOpen(false)}>My Orders</Link>
                 <Link to="/track-order" onClick={() => setIsOpen(false)}>Track Order</Link>
                 <button 
-                  onClick={() => { handleLogout(); setIsOpen(false); }}
+                  onClick={async () => { await handleLogout(); setIsOpen(false); }}
                   className="text-left text-red-500"
                 >
                   Logout

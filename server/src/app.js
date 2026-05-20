@@ -3,11 +3,16 @@ import path from 'path';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import passport from './config/passport.js';
 import productRoutes from './routes/productRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import { completeGoogleAuth } from './controllers/authController.js';
 import { handleWebhook } from './controllers/paymentController.js';
 import { notFound, errorHandler } from './middleware/errorHandler.js';
 
@@ -16,6 +21,7 @@ dotenv.config();
 const app = express();
 
 // Middleware
+
 const origin = process.env.NODE_ENV === 'production' 
   ? process.env.FRONTEND_URL 
   : ['http://localhost:5173', 'http://127.0.0.1:5173'];
@@ -25,6 +31,26 @@ app.use(cors({
   credentials: true
 }));
 app.use(cookieParser());
+app.use(
+  session({
+    name: 'connect.sid',
+    secret: process.env.SESSION_SECRET || 'shazora-session-secret',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/shazora',
+      collectionName: 'sessions',
+    }),
+    cookie: {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    },
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Stripe Webhook MUST be placed BEFORE express.json()
 app.post('/api/payment/webhook', express.raw({ type: 'application/json' }), handleWebhook);
@@ -32,6 +58,12 @@ app.post('/api/payment/webhook', express.raw({ type: 'application/json' }), hand
 app.use(express.json()); // Body parser
 
 // Routes
+app.use('/api/auth', authRoutes);
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/api/auth/google/failure', session: true }),
+  completeGoogleAuth
+);
 app.use('/api/products', productRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/users', userRoutes);

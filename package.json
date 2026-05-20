@@ -4,7 +4,8 @@
   "description": "Shazora E-Commerce Platform",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "predev": "node scripts/prepare-dev.mjs",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "server": "npm run dev --prefix server",
     "client": "npm run dev --prefix client",
     "build": "npm install --prefix client && npm run build --prefix client",

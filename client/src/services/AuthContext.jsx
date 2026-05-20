@@ -1,8 +1,14 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { mongoLogin, mongoFetchProfile, mongoLogout, isMongoConfigured, mongoApi } from './mongoApi';
+import { createContext, useContext, useEffect, useState } from 'react';
+import {
+  mongoLogin,
+  mongoFetchProfile,
+  fetchSessionProfile,
+  mongoLogout,
+  sessionLogout,
+  mongoApi,
+} from './mongoApi';
 
 const AuthContext = createContext();
-const ADMIN_EMAIL = 'shahzaibzaman465@gmail.com';
 
 export const useAuth = () => useContext(AuthContext);
 
@@ -16,6 +22,14 @@ export const AuthProvider = ({ children }) => {
 
   const checkUser = async () => {
     try {
+      try {
+        const sessionUser = await fetchSessionProfile();
+        setUser(sessionUser);
+        return;
+      } catch {
+        // fall through to JWT auth
+      }
+
       const token = localStorage.getItem('shazora_jwt');
       if (token) {
         const mongoUser = await mongoFetchProfile();
@@ -44,19 +58,19 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    try {
+      await sessionLogout();
+    } catch {
+      // ignore logout session failures and clear client state anyway
+    }
     mongoLogout();
     setUser(null);
   };
 
-  const loginWithGoogle = async (googleUser) => {
-    const { data } = await mongoApi.post('/users/google', {
-      email: googleUser.email,
-      name: googleUser.name,
-      googleId: googleUser.sub || googleUser.id,
-    });
-    if (data.token) localStorage.setItem('shazora_jwt', data.token);
-    setUser(data);
-    return data;
+  const syncSessionUser = async () => {
+    const sessionUser = await fetchSessionProfile();
+    setUser(sessionUser);
+    return sessionUser;
   };
 
   const sendResetPasswordEmail = async (email) => {
@@ -86,7 +100,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         login,
-        loginWithGoogle,
+        syncSessionUser,
         signup,
         logout,
         verifyEmail,
