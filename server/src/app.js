@@ -15,6 +15,7 @@ import authRoutes from './routes/authRoutes.js';
 import { completeGoogleAuth } from './controllers/authController.js';
 import { handleWebhook } from './controllers/paymentController.js';
 import { notFound, errorHandler } from './middleware/errorHandler.js';
+import connectDB from './config/db.js';
 
 dotenv.config();
 
@@ -56,6 +57,20 @@ app.use(passport.session());
 app.post('/api/payment/webhook', express.raw({ type: 'application/json' }), handleWebhook);
 
 app.use(express.json()); // Body parser
+
+// Connect to MongoDB on each request (cached connection)
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error('Database connection failed:', error.message);
+    res.status(500).json({
+      message: 'Database connection failed. Please ensure that the IP Address of this Vercel deployment is whitelisted in your MongoDB Atlas Dashboard (Network Access -> Add IP Address -> Allow Access From Anywhere / 0.0.0.0/0).',
+      error: error.message,
+    });
+  }
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
