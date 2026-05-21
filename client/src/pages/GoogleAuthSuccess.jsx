@@ -14,8 +14,10 @@ const GoogleAuthSuccess = () => {
       const params = new URLSearchParams(window.location.search);
       const code = params.get('code');
       if (code) {
-        const backendBaseUrl = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api').replace(/\/api$/, '');
-        window.location.href = `${backendBaseUrl}/auth/google/callback?${params.toString()}`;
+        // Redirect to the Express backend /api/auth/google/callback which handles Passport OAuth
+        // Do NOT strip /api — on Vercel only /api/* routes reach Express
+        const backendApiBase = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+        window.location.href = `${backendApiBase}/auth/google/callback?${params.toString()}`;
         return;
       }
 
