@@ -21,6 +21,9 @@ dotenv.config();
 
 const app = express();
 
+// Trust proxy for secure cookies in production behind Vercel reverse proxy
+app.set('trust proxy', 1);
+
 // Middleware
 
 const origin = process.env.NODE_ENV === 'production' 
