@@ -29,7 +29,7 @@ const GoogleAuthSuccess = () => {
         const errorMessage = decodeURIComponent(error);
         if (isPopup && window.opener) {
           try {
-            window.opener.postMessage({ type: 'GOOGLE_AUTH_FAILURE', error: errorMessage }, window.location.origin);
+            window.opener.postMessage({ type: 'GOOGLE_AUTH_FAILURE', error: errorMessage }, '*');
           } catch (e) {
             console.error(e);
           }
@@ -47,7 +47,7 @@ const GoogleAuthSuccess = () => {
 
         if (isPopup && window.opener) {
           try {
-            window.opener.postMessage({ type: 'GOOGLE_AUTH_SUCCESS' }, window.location.origin);
+            window.opener.postMessage({ type: 'GOOGLE_AUTH_SUCCESS' }, '*');
           } catch (e) {
             console.error(e);
           }
@@ -70,7 +70,7 @@ const GoogleAuthSuccess = () => {
         const errorMessage = authError.message || 'Google sign-in failed. Please try again.';
         if (isPopup && window.opener) {
           try {
-            window.opener.postMessage({ type: 'GOOGLE_AUTH_FAILURE', error: errorMessage }, window.location.origin);
+            window.opener.postMessage({ type: 'GOOGLE_AUTH_FAILURE', error: errorMessage }, '*');
           } catch (e) {
             console.error(e);
           }

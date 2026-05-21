@@ -71,7 +71,12 @@ const Login = () => {
     let messageReceived = false;
 
     const handleMessage = async (msgEvent) => {
-      if (msgEvent.origin !== window.location.origin) return;
+      const allowedOrigins = [
+        window.location.origin,
+        'https://shazora.vercel.app',
+        'https://www.shazora.vercel.app'
+      ];
+      if (!allowedOrigins.includes(msgEvent.origin)) return;
 
       if (msgEvent.data?.type === 'GOOGLE_AUTH_SUCCESS') {
         messageReceived = true;
