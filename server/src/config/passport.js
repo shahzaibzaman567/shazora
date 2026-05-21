@@ -25,8 +25,11 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID || 'missing_google_client_id',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'missing_google_client_secret',
-      callbackURL: process.env.GOOGLE_REDIRECT_URI || 'http://localhost:5000/auth/google/callback',
+      // Use explicit env var if set, otherwise use relative path so Passport
+      // auto-builds the full URL from the incoming request (works on localhost + Vercel)
+      callbackURL: process.env.GOOGLE_REDIRECT_URI || '/api/auth/google/callback',
       passReqToCallback: true,
+      proxy: true,
     },
     async (req, accessToken, refreshToken, profile, done) => {
       try {

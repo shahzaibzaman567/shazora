@@ -12,7 +12,6 @@ import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import authRoutes from './routes/authRoutes.js';
-import { completeGoogleAuth } from './controllers/authController.js';
 import { handleWebhook } from './controllers/paymentController.js';
 import { notFound, errorHandler } from './middleware/errorHandler.js';
 import connectDB from './config/db.js';
@@ -77,11 +76,6 @@ app.use(async (req, res, next) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.get(
-  '/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/api/auth/google/failure', session: true }),
-  completeGoogleAuth
-);
 app.use('/api/products', productRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/users', userRoutes);
