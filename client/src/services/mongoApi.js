@@ -1,7 +1,12 @@
 import axios from 'axios';
 
 const viteEnv = import.meta.env || {};
-const baseURL = viteEnv.VITE_API_BASE_URL || 'http://localhost:5001/api';
+const isLocalhost = typeof window !== 'undefined' && /localhost|127\.0\.0\.1/.test(window.location.hostname);
+let baseURL = viteEnv.VITE_API_BASE_URL || (isLocalhost ? 'http://localhost:5001/api' : '/api');
+
+if (!isLocalhost && baseURL.includes('localhost')) {
+  baseURL = '/api';
+}
 export const mongoBaseURL = baseURL;
 
 let parsedOrigin = 'http://localhost:5001';

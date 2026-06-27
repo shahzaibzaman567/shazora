@@ -16,7 +16,13 @@ const GoogleAuthSuccess = () => {
       if (code) {
         // Redirect to the Express backend /api/auth/google/callback which handles Passport OAuth
         // Do NOT strip /api — on Vercel only /api/* routes reach Express
-        const backendApiBase = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+        const isLocalhost = typeof window !== 'undefined' && /localhost|127\.0\.0\.1/.test(window.location.hostname);
+        let backendApiBase = import.meta.env.VITE_API_BASE_URL || (isLocalhost ? 'http://localhost:5000/api' : '/api');
+        
+        if (!isLocalhost && backendApiBase.includes('localhost')) {
+          backendApiBase = '/api';
+        }
+        
         window.location.href = `${backendApiBase}/auth/google/callback?${params.toString()}`;
         return;
       }
