@@ -67,7 +67,7 @@ export default function AiAssistant() {
       }
 
       // Build Gemini contents array (skip the initial assistant greeting for history)
-      const history = updatedMessages.slice(0, -1).filter(m => m.role === 'user' || m.role === 'assistant');
+      const history = updatedMessages.slice(1, -1).filter(m => m.role === 'user' || m.role === 'assistant');
       const contents = [];
 
       // Add system instruction as first user turn (Gemini 1.5 flash supports systemInstruction)
