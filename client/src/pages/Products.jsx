@@ -12,7 +12,7 @@ const Products = ({ category = 'all' }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [priceLimit, setPriceLimit] = useState(200);
+  const [priceLimit, setPriceLimit] = useState(50000);
   const [sortBy, setSortBy] = useState('newest');
 
   useEffect(() => {
@@ -92,8 +92,8 @@ const Products = ({ category = 'all' }) => {
               <input 
                 type="range" 
                 min="0" 
-                max="500" 
-                step="10"
+                max="50000" 
+                step="500"
                 className="w-32 accent-accent cursor-pointer"
                 value={priceLimit}
                 onChange={(e) => setPriceLimit(Number(e.target.value))}
@@ -129,7 +129,7 @@ const Products = ({ category = 'all' }) => {
       ) : (
         <div className="text-center py-20 opacity-50 border-2 border-dashed border-slate-200 dark:border-white/5 rounded-[3rem]">
           <p className="text-xl font-bold uppercase tracking-widest">No products found matching your criteria</p>
-          <button onClick={() => { setSearchTerm(''); setPriceLimit(500); }} className="mt-4 text-accent underline underline-offset-4 text-xs font-black uppercase tracking-widest hover:text-slate-900 dark:hover:text-white transition-colors">
+          <button onClick={() => { setSearchTerm(''); setPriceLimit(50000); }} className="mt-4 text-accent underline underline-offset-4 text-xs font-black uppercase tracking-widest hover:text-slate-900 dark:hover:text-white transition-colors">
             Clear all filters
           </button>
         </div>
