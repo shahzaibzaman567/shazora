@@ -35,9 +35,7 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     if (!product || product.countInStock === 0) return;
-    for (let i = 0; i < qty; i++) {
-      addToCart(product);
-    }
+    addToCart(product, qty);
     navigate('/cart');
   };
 

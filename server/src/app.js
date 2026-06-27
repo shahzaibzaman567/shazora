@@ -30,7 +30,10 @@ const origin = process.env.NODE_ENV === 'production'
   : ['http://localhost:5173', 'http://127.0.0.1:5173'];
 
 app.use(cors({
-  origin: origin || '*',
+  origin: function (origin, callback) {
+    // If no origin (e.g. same origin) or FRONTEND_URL is set, allow it dynamically
+    callback(null, true);
+  },
   credentials: true
 }));
 app.use(cookieParser());

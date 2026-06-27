@@ -57,6 +57,15 @@ export default function AiAssistant() {
     setLoading(true);
 
     try {
+      if (!GEMINI_API_KEY) {
+        setMessages(prev => [
+          ...prev,
+          { role: 'assistant', content: "Oops! It looks like my API key is missing. Please ask your developer to set `VITE_GEMINI_API_KEY` in the Vercel environment variables." },
+        ]);
+        setLoading(false);
+        return;
+      }
+
       // Build Gemini contents array (skip the initial assistant greeting for history)
       const history = updatedMessages.slice(0, -1).filter(m => m.role === 'user' || m.role === 'assistant');
       const contents = [];

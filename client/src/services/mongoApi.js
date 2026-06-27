@@ -149,7 +149,7 @@ export function normalizeProduct(raw) {
     _id: raw._id ?? raw.id,
     category: catStr,
     image: imgUrl || '',
-    countInStock: raw.countInStock ?? raw.count_in_stock ?? 0,
+    countInStock: raw.stock ?? raw.countInStock ?? raw.count_in_stock ?? 0,
     price: typeof raw.price === 'number' ? raw.price : Number(raw.price) || 0,
     createdAt: raw.createdAt,
   };
