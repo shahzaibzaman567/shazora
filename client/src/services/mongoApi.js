@@ -128,10 +128,27 @@ function normalizeUser(raw) {
 export function normalizeProduct(raw) {
   if (!raw) return null;
   const id = raw._id != null ? String(raw._id) : String(raw.id ?? '');
+  
+  let catStr = String(raw.category || 'men').toLowerCase();
+  if (catStr.length === 24) {
+    if (raw.gender === 'Women' || raw.gender === 'women') catStr = 'women';
+    else if (raw.gender === 'Men' || raw.gender === 'men') catStr = 'men';
+    else if (raw.name && raw.name.toLowerCase().includes('women')) catStr = 'women';
+    else if (raw.name && raw.name.toLowerCase().includes('men')) catStr = 'men';
+    else catStr = 'men';
+  }
+
+  let imgUrl = raw.image;
+  if (!imgUrl && raw.images && raw.images.length > 0) {
+    imgUrl = raw.images[0].url;
+  }
+
   return {
     ...raw,
     id,
     _id: raw._id ?? raw.id,
+    category: catStr,
+    image: imgUrl || '',
     countInStock: raw.countInStock ?? raw.count_in_stock ?? 0,
     price: typeof raw.price === 'number' ? raw.price : Number(raw.price) || 0,
     createdAt: raw.createdAt,
