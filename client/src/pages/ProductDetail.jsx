@@ -4,11 +4,13 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Minus, Plus, ShoppingCart } from 'lucide-react';
 import { getProductById } from '../services/api';
 import { useCart } from '../services/CartContext';
+import { useToast } from '../context/ToastContext';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { showToast } = useToast();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,6 +38,7 @@ const ProductDetail = () => {
   const handleAddToCart = () => {
     if (!product || product.countInStock === 0) return;
     addToCart(product, qty);
+    showToast(`${qty} x ${product.name} added to cart!`);
     navigate('/cart');
   };
 

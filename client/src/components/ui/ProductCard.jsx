@@ -3,15 +3,18 @@ import { Link } from 'react-router-dom';
 import Tilt from 'react-parallax-tilt';
 import { ShoppingCart } from 'lucide-react';
 import { useCart } from '../../services/CartContext';
+import { useToast } from '../../context/ToastContext';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
+  const { showToast } = useToast();
   const pid = product.id || product._id;
 
   const handleAddToCart = (e) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart({ ...product, id: pid });
+    showToast(`${product.name} added to cart!`);
   };
 
   return (
