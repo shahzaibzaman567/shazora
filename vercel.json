@@ -15,6 +15,8 @@
     { "src": "/api/(.*)", "dest": "/api/index.js" },
     { "src": "/assets/(.*)", "dest": "/client/assets/$1" },
     { "src": "/logo.png", "dest": "/client/logo.png" },
+    { "src": "/favicon.png", "dest": "/client/favicon.png" },
+    { "src": "/favicon.ico", "dest": "/client/favicon.png" },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/client/index.html" }
   ]
