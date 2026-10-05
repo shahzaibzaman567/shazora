@@ -66,7 +66,7 @@ function buildSystemPrompt(catalogText) {
   return BASE_SYSTEM_PROMPT.replace(
     '{{CATALOG}}',
     catalogText ||
-      'Live catalog unavailable right now. Direct customers to /products, /products/men, or /products/women.'
+    'Live catalog unavailable right now. Direct customers to /products, /products/men, or /products/women.'
   );
 }
 
@@ -325,6 +325,7 @@ Browse collections at ${STORE_INFO.pages.shop}.`;
                 </div>
                 <div>
                   <p className="font-black text-white text-sm">Zara AI</p>
+                  <p className="text-[9px] text-blue-400 font-bold tracking-wider uppercase mt-0.5">Powered by Shazora AI</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -353,11 +354,10 @@ Browse collections at ${STORE_INFO.pages.shop}.`;
                     </div>
                   )}
                   <div
-                    className={`max-w-[78%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
-                      msg.role === 'user'
+                    className={`max-w-[78%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
                         ? 'bg-accent text-white rounded-tr-sm'
                         : 'bg-white/8 text-gray-200 rounded-tl-sm border border-white/5'
-                    }`}
+                      }`}
                   >
                     {renderText(msg.content)}
                   </div>
@@ -421,7 +421,6 @@ Browse collections at ${STORE_INFO.pages.shop}.`;
                   <Send className="w-3.5 h-3.5 text-white" />
                 </motion.button>
               </div>
-              <p className="text-[9px] text-white/15 text-center mt-2 uppercase tracking-widest">Powered by Shazora AI</p>
             </div>
           </motion.div>
         )}
