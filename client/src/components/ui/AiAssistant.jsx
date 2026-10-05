@@ -354,7 +354,7 @@ Browse collections at ${STORE_INFO.pages.shop}.`;
                     </div>
                   )}
                   <div
-                    className={`max-w-[78%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
+                    className={`max-w-[78%] px-4 py-3 rounded-2xl text-sm leading-relaxed break-words whitespace-pre-wrap overflow-hidden ${msg.role === 'user'
                         ? 'bg-accent text-white rounded-tr-sm'
                         : 'bg-white/8 text-gray-200 rounded-tl-sm border border-white/5'
                       }`}
